@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=380" />
+  <title>Capture</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared/tokens.css" />
+  <link rel="stylesheet" href="../shared/typography.css" />
+  <link rel="stylesheet" href="../shared/components.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup" id="popup">
+    <header class="panel-header popup-header">
+      <span class="panel-header__title">Capture</span>
+      <div class="panel-header__actions">
+        <button type="button" class="header-link" id="btn-dashboard">View Dashboard</button>
+        <button type="button" class="icon-btn" id="btn-close" title="Close" aria-label="Close">×</button>
+      </div>
+    </header>
+
+    <div class="panel-meta">
+      <span class="panel-meta__status" id="item-count">Ready to capture</span>
+      <div class="panel-meta__actions">
+        <button type="button" class="btn-primary btn-primary--sm" id="btn-confirm">Capture</button>
+      </div>
+    </div>
+
+    <div class="instruction-box">
+      <span class="instruction-point"><kbd>Click</kbd> elements on the page to select them.</span>
+      <span class="instruction-point">Press <kbd>Enter</kbd> to open preview panel to select which elements to save.</span>
+      <span class="instruction-point">Press <kbd>Esc</kbd> to exit capture mode.</span>
+    </div>
+
+    <div class="empty-placeholder" id="preview-placeholder">
+      Nothing selected yet. Get capturing!
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

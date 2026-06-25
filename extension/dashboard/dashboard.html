@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decova — All Clips</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1 class="sidebar__logo">Decova</h1>
+      <nav class="sidebar__nav">
+        <a href="dashboard.html" class="nav-item nav-item--active" data-view="all">
+          <span>All Clips</span>
+          <span class="nav-item__count" id="count-all">0</span>
+        </a>
+        <a href="dashboard.html?view=recent" class="nav-item" data-view="recent">
+          <span>Recently Saved</span>
+          <span class="nav-item__count" id="count-recent">0</span>
+        </a>
+        <a href="dashboard.html?view=favorites" class="nav-item" data-view="favorites">
+          <span>Favorites</span>
+          <span class="nav-item__count" id="count-favorites">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__heading-row">
+        <span class="sidebar__heading sidebar__heading--inline">Collections</span>
+        <a href="collections-board.html" class="sidebar-boards-link" title="Browse boards">›</a>
+      </div>
+      <nav class="sidebar__collections" id="sidebar-collections"></nav>
+      <button type="button" class="btn-new-collection" id="btn-new-collection">+ New Collection</button>
+
+      <p class="sidebar__heading">Tags</p>
+      <nav class="sidebar__tags" id="sidebar-tags"></nav>
+      <button type="button" class="link-more" id="btn-more-tags" hidden>view more ⌄</button>
+    </aside>
+
+    <main class="main">
+      <header class="main__top">
+        <div class="main__title-row">
+          <h2 class="main__title" id="page-title">All Clips</h2>
+          <span class="count-badge" id="page-count">0</span>
+        </div>
+        <div class="main__search-row">
+          <div class="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="#9E9E9E" stroke-width="2"/>
+              <path d="M16 16l5 5" stroke="#9E9E9E" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input type="search" id="search" placeholder="Search clips…" />
+          </div>
+          <div class="avatar" aria-hidden="true"></div>
+        </div>
+      </header>
+
+      <div class="main__filters">
+        <div class="filter-pills" id="filter-pills">
+          <button type="button" class="pill pill--active" data-filter="all">All</button>
+          <button type="button" class="pill" data-filter="favorites">Favorites</button>
+        </div>
+        <div class="sort-wrap" id="sort-wrap">
+          <button type="button" class="sort-btn" id="sort-menu-trigger" aria-expanded="false" aria-haspopup="true">
+            Sort by · Most recent ▾
+          </button>
+          <div class="sort-menu" id="sort-menu" hidden role="menu" aria-labelledby="sort-menu-trigger">
+            <button type="button" class="sort-menu__item" role="menuitemradio" data-sort="recent">Most recent</button>
+            <button type="button" class="sort-menu__item" role="menuitemradio" data-sort="leastRecent">Least recent</button>
+            <button type="button" class="sort-menu__item" role="menuitemradio" data-sort="nameAsc">Name A → Z</button>
+            <button type="button" class="sort-menu__item" role="menuitemradio" data-sort="nameDesc">Name Z → A</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <span class="action-bar__status" id="selection-status">0 Clip(s) Selected</span>
+        <div class="action-bar__buttons">
+          <button type="button" class="btn btn--outline" id="btn-select-all">Select All</button>
+          <div class="move-wrap" id="move-wrap">
+            <button type="button" class="btn btn--muted" id="btn-move" disabled aria-expanded="false" aria-haspopup="true">Move To ▾</button>
+            <div class="move-menu" id="move-menu" hidden></div>
+          </div>
+          <button type="button" class="btn btn--muted" id="btn-export" disabled>Export</button>
+          <button type="button" class="btn btn--muted" id="btn-delete" disabled>Delete</button>
+        </div>
+      </div>
+
+      <div class="clip-grid" id="clip-grid"></div>
+      <p class="empty" id="empty-state" hidden>No clips yet. Capture elements from any page using the extension.</p>
+    </main>
+  </div>
+
+  <div class="clip-detail" id="clip-detail" hidden>
+    <div class="clip-detail__backdrop" data-close-detail></div>
+    <div class="clip-detail__panel" role="dialog" aria-modal="true">
+      <header class="clip-detail__header">
+        <div class="clip-detail__header-main">
+          <input type="text" class="clip-detail__title" id="detail-title" />
+          <button type="button" class="clip-detail__close" id="detail-close" aria-label="Close">×</button>
+        </div>
+        <div class="clip-detail__collections" id="detail-collections" hidden></div>
+      </header>
+      <div class="clip-detail__preview" id="detail-preview"></div>
+      <nav class="clip-detail__pager" id="detail-pager" hidden aria-label="Element pages">
+        <button type="button" class="clip-detail__pager-btn" id="detail-prev" aria-label="Previous element">‹</button>
+        <span class="clip-detail__pager-label" id="detail-page-label">1 / 1</span>
+        <button type="button" class="clip-detail__pager-btn" id="detail-next" aria-label="Next element">›</button>
+      </nav>
+      <div class="clip-detail__body scrollable" id="detail-body"></div>
+      <footer class="clip-detail__footer">
+        <button type="button" class="detail-btn detail-btn--danger" id="detail-delete">Delete</button>
+        <button type="button" class="detail-btn detail-btn--outline" id="detail-copy-tailwind">Copy Tailwind</button>
+        <button type="button" class="detail-btn detail-btn--primary" id="detail-copy-css">Copy CSS</button>
+      </footer>
+    </div>
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

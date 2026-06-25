@@ -1,0 +1,30 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-elevated: #f1f3f4;
+  --bg-input: #ffffff;
+  --text-primary: #202124;
+  --text-secondary: #5f6368;
+  --text-muted: #9aa0a6;
+  --accent-green: #34a853;
+  --accent-red: #ea4335;
+  --accent-blue: #1a73e8;
+  --accent-orange: #f9ab00;
+  --border-subtle: #dadce0;
+  --border-light: #e8eaed;
+  --overlay-bg: rgba(0, 0, 0, 0.35);
+  --accent-blue-8: rgba(26, 115, 232, 0.08);
+  --accent-blue-10: rgba(26, 115, 232, 0.1);
+  --accent-blue-15: rgba(26, 115, 232, 0.15);
+  --accent-blue-20: rgba(26, 115, 232, 0.2);
+  --panel-shadow: 0 4px 24px rgba(60, 64, 67, 0.15);
+  --radius-panel: 8px;
+  --radius-button: 6px;
+  --radius-badge: 4px;
+  --spacing-unit: 4px;
+  --panel-padding-x: 16px;
+  --panel-padding-y: 12px;
+  --row-height: 36px;
+  --item-gap: 6px;
+  --section-gap: 16px;
+}

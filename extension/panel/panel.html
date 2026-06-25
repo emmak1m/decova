@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=380" />
+  <title>Preview</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared/tokens.css" />
+  <link rel="stylesheet" href="../shared/typography.css" />
+  <link rel="stylesheet" href="../shared/components.css" />
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <div class="preview-panel" id="preview-panel">
+    <header class="panel-header">
+      <div class="panel-header__title">
+        <button type="button" class="panel-header__back" id="btn-back" aria-label="Back">‹</button>
+        <span>Preview</span>
+      </div>
+      <div class="panel-header__actions">
+        <button type="button" class="header-link" id="btn-dashboard">View Dashboard</button>
+        <button type="button" class="icon-btn" id="btn-close" title="Close" aria-label="Close">×</button>
+      </div>
+    </header>
+
+    <div class="panel-body scrollable">
+      <p class="items-heading" id="items-heading">0 Item(s) Detected</p>
+      <div class="item-list item-list--bordered" id="item-list"></div>
+
+      <section class="section section--save-options section--disabled" id="section-save-options">
+        <span class="section-label">Save Options</span>
+        <div class="save-option" data-save-mode="individual" id="opt-individual">
+          <span class="capture-radio" id="radio-individual"></span>
+          <div class="save-option__text">
+            <div class="save-option__title">Save as individual(s)</div>
+            <p class="save-option__sub">Individual reusable component(s)</p>
+          </div>
+        </div>
+        <div class="save-option" data-save-mode="group" id="opt-group">
+          <span class="capture-radio" id="radio-group"></span>
+          <div class="save-option__text">
+            <div class="save-option__title">Save as group</div>
+            <p class="save-option__sub">One clip with all elements linked together</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--disabled" id="section-save-to">
+        <div class="section-label-row">
+          <span class="section-label">Save To</span>
+          <span class="section-required" id="save-required" hidden></span>
+        </div>
+        <div id="group-name-wrap">
+          <input type="text" class="capture-input" id="capture-name" placeholder="Name this Capture" />
+        </div>
+        <div class="individual-names" id="individual-names" hidden></div>
+
+        <div class="collection-dropdown" id="collection-dropdown">
+          <button type="button" class="collection-dropdown__trigger" id="collection-trigger">
+            <span id="collection-trigger-label">Select Collection</span>
+            <span class="collection-dropdown__chevron">▾</span>
+          </button>
+          <div class="collection-dropdown__panel scrollable" id="collection-panel" hidden>
+            <div class="collection-list" id="collection-list"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="panel-footer">
+      <button type="button" class="btn-primary" id="btn-confirm" disabled>Confirm</button>
+    </footer>
+  </div>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

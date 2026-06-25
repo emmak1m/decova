@@ -1,0 +1,33 @@
+html,
+body {
+  width: 380px;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.capture-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-shadow: var(--panel-shadow);
+}
+
+.icon-btn {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.btn-primary--sm {
+  min-width: 0;
+  height: auto;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.panel-meta__selected-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=380" />
+  <title>Capture</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../shared/tokens.css" />
+  <link rel="stylesheet" href="../shared/typography.css" />
+  <link rel="stylesheet" href="../shared/components.css" />
+  <link rel="stylesheet" href="capture-panel.css" />
+</head>
+<body>
+  <div class="capture-panel" id="capture-panel">
+    <header class="panel-header">
+      <span class="panel-header__title">Capture</span>
+      <div class="panel-header__actions">
+        <button type="button" class="header-link" id="btn-dashboard">View Dashboard</button>
+        <button type="button" class="icon-btn" id="btn-close" title="Close" aria-label="Close">×</button>
+      </div>
+    </header>
+
+    <div class="panel-meta">
+      <span class="panel-meta__status" id="status-text">Ready to capture</span>
+      <div class="panel-meta__actions" id="meta-actions">
+        <button type="button" class="btn-primary btn-primary--sm" id="btn-start" hidden>Capture</button>
+        <div class="panel-meta__selected-actions" id="selected-actions" hidden>
+          <button type="button" class="btn-outline" id="btn-recapture">Re-capture</button>
+          <button type="button" class="btn-primary btn-primary--sm" id="btn-continue">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="instruction-box">
+      <span class="instruction-point"><kbd>Click</kbd> elements on the page to select them.</span>
+      <span class="instruction-point">Press <kbd>Enter</kbd> to open preview panel to select which elements to save.</span>
+      <span class="instruction-point">Press <kbd>Esc</kbd> to exit capture mode.</span>
+    </div>
+
+    <div id="empty-state" class="empty-placeholder">
+      Nothing selected yet. Get capturing!
+    </div>
+
+    <div id="selection-section" hidden>
+      <p class="items-heading" id="items-heading">0 Item(s) Selected</p>
+      <div class="item-list item-list--bordered" id="item-list"></div>
+    </div>
+  </div>
+
+  <script type="module" src="capture-panel.js"></script>
+</body>
+</html>

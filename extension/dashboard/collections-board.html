@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decova — Collection boards</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="collections-board.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1 class="sidebar__logo"><a href="dashboard.html" class="sidebar__logo-link">Decova</a></h1>
+      <nav class="sidebar__nav">
+        <a href="dashboard.html" class="nav-item" data-view="all">
+          <span>All Clips</span>
+          <span class="nav-item__count" id="count-all">0</span>
+        </a>
+        <a href="dashboard.html?view=recent" class="nav-item" data-view="recent">
+          <span>Recently Saved</span>
+          <span class="nav-item__count" id="count-recent">0</span>
+        </a>
+        <a href="dashboard.html?view=favorites" class="nav-item" data-view="favorites">
+          <span>Favorites</span>
+          <span class="nav-item__count" id="count-favorites">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__heading-row sidebar__heading-row--boards-active">
+        <span class="sidebar__heading sidebar__heading--inline">Collections</span>
+        <a href="collections-board.html" class="sidebar-boards-link sidebar-boards-link--current" title="Collection boards">›</a>
+      </div>
+      <nav class="sidebar__collections" id="sidebar-collections"></nav>
+      <button type="button" class="btn-new-collection" id="btn-new-collection">+ New Collection</button>
+
+      <p class="sidebar__heading">Tags</p>
+      <nav class="sidebar__tags" id="sidebar-tags"></nav>
+      <button type="button" class="link-more" id="btn-more-tags" hidden>view more ⌄</button>
+    </aside>
+
+    <main class="main boards-main">
+      <header class="main__top boards-main__header">
+        <div class="main__title-row">
+          <h2 class="main__title">Collection boards</h2>
+        </div>
+      </header>
+
+      <div class="clip-grid boards-grid" id="boards-grid"></div>
+    </main>
+  </div>
+
+  <script type="module" src="collections-board.js"></script>
+</body>
+</html>
