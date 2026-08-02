@@ -83,15 +83,6 @@ window.DecovaCapture = window.DecovaCapture || {};
     return `<${el.tagName.toLowerCase()}>`;
   };
 
-  DC.formatBreadcrumb = (el) => {
-    const parts = [];
-    if (el.tagName) parts.push({ type: 'tag', text: el.tagName.toLowerCase() });
-    if (el.id) parts.push({ type: 'id', text: `#${el.id}` });
-    const cls = [...(el.classList || [])][0];
-    if (cls) parts.push({ type: 'class', text: `.${cls}` });
-    return parts;
-  };
-
   DC.findSectionAncestor = (el) => {
     let node = el;
     const sectionTags = new Set(['section', 'article', 'nav', 'header', 'footer', 'main', 'aside']);
