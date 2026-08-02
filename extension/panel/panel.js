@@ -48,15 +48,35 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function highlightCode(code) {
-  return String(code || '')
-    .split('\n')
-    .map((line) => {
-      const m = line.match(/^([\w-]+)(\s*:\s*)(.+)$/);
-      if (!m) return escapeHtml(line);
-      return `<span class="prop">${escapeHtml(m[1])}</span>${escapeHtml(m[2])}<span class="val">${escapeHtml(m[3])}</span>`;
-    })
-    .join('\n');
+const PREVIEW_FRAME_WIDTH = 300;
+const PREVIEW_FRAME_MIN_HEIGHT = 60;
+const PREVIEW_FRAME_MAX_HEIGHT = 320;
+
+function previewScale(item) {
+  const w = item.meta?.boundingBox?.width || 0;
+  return w > PREVIEW_FRAME_WIDTH ? PREVIEW_FRAME_WIDTH / w : 1;
+}
+
+function previewFrameHeight(item) {
+  const h = item.meta?.boundingBox?.height || 0;
+  if (!h) return PREVIEW_FRAME_MIN_HEIGHT;
+  const scaled = h * previewScale(item);
+  return Math.round(Math.min(PREVIEW_FRAME_MAX_HEIGHT, Math.max(PREVIEW_FRAME_MIN_HEIGHT, scaled)));
+}
+
+function buildPreviewDoc(item) {
+  const body = item.previewHtml || item.html || '';
+  const scale = previewScale(item);
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+    html, body { margin: 0; padding: 0; background: #fff; }
+    .decova-preview-scale { display: inline-block; transform: scale(${scale}); transform-origin: top left; }
+  </style></head><body><div class="decova-preview-scale">${body}</div></body></html>`;
+}
+
+function renderItemPreview(item) {
+  const height = previewFrameHeight(item);
+  const doc = buildPreviewDoc(item);
+  return `<iframe class="item-preview-frame" style="height:${height}px" sandbox="" srcdoc="${escapeHtml(doc)}"></iframe>`;
 }
 
 function tagBadgeClass(item) {
@@ -109,11 +129,7 @@ function renderItems() {
             <span class="list-row__label" data-action="toggle-expand">${escapeHtml(item.label || defaultItemName(item))}</span>
             <span class="item-row__badges">${renderItemBadges(item)}</span>
           </div>
-          ${
-            expanded
-              ? `<div class="code-block"><pre>${highlightCode(item.code || '')}</pre>${item.htmlPreview ? `<pre class="code-block__html">${escapeHtml(item.htmlPreview)}</pre>` : ''}</div>`
-              : ''
-          }
+          ${expanded ? `<div class="code-block code-block--preview">${renderItemPreview(item)}</div>` : ''}
         </div>
       `;
     })

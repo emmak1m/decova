@@ -141,6 +141,74 @@ window.DecovaCapture = window.DecovaCapture || {};
     return [...lines, ...varLines].join('\n');
   }
 
+  const PREVIEW_PROPS = [
+    'display', 'position', 'box-sizing',
+    'flex-direction', 'flex-wrap', 'align-items', 'justify-content', 'align-content', 'gap',
+    'flex-grow', 'flex-shrink', 'flex-basis',
+    'grid-template-columns', 'grid-template-rows', 'grid-auto-flow',
+    'width', 'height', 'min-width', 'min-height', 'max-width', 'max-height',
+    'margin', 'padding',
+    'border', 'border-radius', 'border-color', 'border-width', 'border-style',
+    'background', 'background-color', 'background-image', 'background-size',
+    'background-position', 'background-repeat',
+    'color', 'font-family', 'font-size', 'font-weight', 'font-style', 'line-height',
+    'letter-spacing', 'text-align', 'text-decoration', 'text-transform', 'white-space',
+    'text-overflow', 'overflow',
+    'box-shadow', 'opacity', 'object-fit', 'object-position', 'vertical-align',
+    'list-style', 'outline', 'transform', 'z-index',
+  ];
+
+  const SKIP_PREVIEW_TAGS = new Set(['script', 'noscript', 'template']);
+
+  function styleStringFor(el) {
+    const computed = window.getComputedStyle(el);
+    const lines = [];
+    PREVIEW_PROPS.forEach((prop) => {
+      const val = computed.getPropertyValue(prop);
+      if (val) lines.push(`${prop}: ${val}`);
+    });
+    return lines.join('; ');
+  }
+
+  function resolveUrlAttr(node, attr) {
+    const val = node.getAttribute(attr);
+    if (!val) return;
+    try {
+      node.setAttribute(attr, new URL(val, location.href).href);
+    } catch {
+      /* leave as-is */
+    }
+  }
+
+  function sanitizeForPreview(node) {
+    [...node.attributes].forEach((attr) => {
+      if (/^on/i.test(attr.name)) node.removeAttribute(attr.name);
+    });
+    resolveUrlAttr(node, 'src');
+    resolveUrlAttr(node, 'href');
+    if (node.hasAttribute('srcset')) node.removeAttribute('srcset');
+  }
+
+  DC.buildPreviewHtml = (element) => {
+    if (!element) return '';
+    const originals = [element, ...element.querySelectorAll('*')];
+    const clone = element.cloneNode(true);
+    const clones = [clone, ...clone.querySelectorAll('*')];
+
+    originals.forEach((orig, i) => {
+      const node = clones[i];
+      if (!node) return;
+      if (SKIP_PREVIEW_TAGS.has(node.tagName?.toLowerCase())) {
+        node.remove();
+        return;
+      }
+      node.setAttribute('style', styleStringFor(orig));
+      sanitizeForPreview(node);
+    });
+
+    return clone.outerHTML;
+  };
+
   DC.extractElement = (element, index) => {
     const { type, badgeLabel } = classifyElement(element);
     const computed = window.getComputedStyle(element);
@@ -159,6 +227,7 @@ window.DecovaCapture = window.DecovaCapture || {};
           : element.tagName.toLowerCase();
 
     const nested = analyzeNestedContent(element);
+    const rect = element.getBoundingClientRect();
 
     return {
       id: `capture_${String(index + 1).padStart(3, '0')}`,
@@ -171,6 +240,7 @@ window.DecovaCapture = window.DecovaCapture || {};
       nestedExtraCount: nested.extraCount,
       html,
       htmlPreview: truncateHtml(html),
+      previewHtml: DC.buildPreviewHtml(element),
       css: styles,
       variables,
       code: stylesToCode(styles, variables),
@@ -184,7 +254,7 @@ window.DecovaCapture = window.DecovaCapture || {};
         childCount: element.children.length,
         nestedExtraCount: nested.extraCount,
         textContent: (element.textContent || '').trim().slice(0, 120),
-        boundingBox: element.getBoundingClientRect(),
+        boundingBox: { width: rect.width, height: rect.height },
         screenshot: null,
       },
     };

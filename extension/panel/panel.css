@@ -61,14 +61,17 @@ body {
   gap: 4px;
 }
 
-.code-block__html {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #3c4043;
-  color: #9aa0a6;
-  font-size: 10px;
-  white-space: pre-wrap;
-  word-break: break-all;
+.code-block--preview {
+  padding: 10px;
+  background: #f1f3f4;
+}
+
+.item-preview-frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  background: #fff;
 }
 
 .collection-list {

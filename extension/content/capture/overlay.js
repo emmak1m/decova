@@ -31,7 +31,7 @@ window.DecovaCapture = window.DecovaCapture || {};
     const bodyStyle = document.createElement('style');
     bodyStyle.id = DC.INJECTED_STYLE_ID;
     bodyStyle.textContent =
-      'body { cursor: none !important; overflow: hidden !important; } html { overflow: hidden !important; }';
+      'body { overflow: hidden !important; } html { overflow: hidden !important; }';
     document.documentElement.appendChild(bodyStyle);
 
     return {
@@ -79,7 +79,7 @@ window.DecovaCapture = window.DecovaCapture || {};
     .decova-overlay { position: fixed; inset: 0; pointer-events: none; }
     .decova-layer {
       position: fixed; inset: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.28); cursor: none; pointer-events: all; z-index: 1;
+      background: rgba(0, 0, 0, 0.28); cursor: default; pointer-events: all; z-index: 1;
     }
     .decova-toast {
       position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-8px);
@@ -156,16 +156,6 @@ window.DecovaCapture = window.DecovaCapture || {};
       background: #4caf50; border-radius: 50%; color: #fff; font-size: 10px;
       display: flex; align-items: center; justify-content: center; font-weight: 500;
     }
-    .capture-highlight__breadcrumb {
-      position: absolute; left: 0; transform: translateY(-100%);
-      display: flex; gap: 4px; padding-bottom: 4px; pointer-events: none;
-    }
-    .capture-highlight__crumb {
-      font: 500 10px 'Google Sans', sans-serif; color: #202124;
-      background: #fff; border: 1px solid #dadce0; padding: 4px 8px; border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(60, 64, 67, 0.1);
-    }
-    .capture-highlight__crumb--tag { color: #1a73e8; }
     .capture-highlight__warn {
       position: absolute; bottom: 100%; left: 0; margin-bottom: 4px;
       font: 400 10px 'Google Sans', sans-serif; color: #e37400;
@@ -177,14 +167,6 @@ window.DecovaCapture = window.DecovaCapture || {};
       will-change: transform;
     }
     .decova-cursor-wrap--snap { transition: transform 120ms ease; }
-    .decova-cursor-svg { display: block; }
-    .decova-cursor-label {
-      margin-top: 4px; margin-left: -8px; padding: 2px 6px; border-radius: 4px;
-      background: #fff; border: 1px solid #dadce0; color: #202124;
-      font: 400 10px 'Google Sans', sans-serif;
-      white-space: nowrap;
-      box-shadow: 0 1px 4px rgba(60, 64, 67, 0.1);
-    }
     .decova-pulse {
       position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px;
       border: 2px solid #1a73e8; border-radius: 50%; opacity: 0.8;

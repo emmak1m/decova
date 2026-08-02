@@ -81,7 +81,6 @@ window.DecovaCapture = window.DecovaCapture || {};
         state.inIframe = true;
         state.hoverTarget = null;
         highlighter.clearHover();
-        cursor.setLabel('');
         cursor.setHovering(false);
         return;
       }
@@ -89,12 +88,10 @@ window.DecovaCapture = window.DecovaCapture || {};
       state.hoverTarget = el;
       if (el) {
         highlighter.setHoverTarget(el);
-        cursor.setLabel(DC.formatTagLabel(el));
         cursor.setHovering(true);
         hoverPreview?.schedule(el, x, y);
       } else {
         highlighter.clearHover();
-        cursor.setLabel('');
         cursor.setHovering(false);
         hoverPreview?.hide();
       }
@@ -110,7 +107,6 @@ window.DecovaCapture = window.DecovaCapture || {};
       } else return;
       state.hoverTarget = el;
       highlighter.setHoverTarget(el);
-      cursor.setLabel(DC.formatTagLabel(el));
     }
 
     function onKeyDown(e) {

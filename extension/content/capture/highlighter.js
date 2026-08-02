@@ -23,27 +23,12 @@ window.DecovaCapture = window.DecovaCapture || {};
         const large = raw.width > window.innerWidth * 0.9 || raw.height > window.innerHeight * 0.85;
         warn.style.display = large && !options.selected ? 'block' : 'none';
       }
-
-      const crumb = box.querySelector('.capture-highlight__breadcrumb');
-      if (crumb && !options.selected) {
-        const parts = DC.formatBreadcrumb(el);
-        crumb.innerHTML = parts
-          .map(
-            (p) =>
-              `<span class="capture-highlight__crumb ${p.type === 'tag' ? 'capture-highlight__crumb--tag' : ''}">${p.text}</span>`,
-          )
-          .join('');
-        const spaceAbove = rect.top > 28;
-        crumb.style.top = spaceAbove ? '0' : '4px';
-        crumb.style.transform = spaceAbove ? 'translateY(-100%)' : 'none';
-      }
     }
 
     function createHoverBox() {
       const box = document.createElement('div');
       box.className = 'capture-highlight';
       box.innerHTML = `
-        <div class="capture-highlight__breadcrumb"></div>
         <div class="capture-highlight__warn">Large element — consider selecting a child</div>
       `;
       container.appendChild(box);
